@@ -1,26 +1,28 @@
+//Vishva Patel
+//Section #2
 using namespace std;
 #include <iostream>
 #include <fstream>
 #include "person.cpp"
+#include <vector>
 
-
-void readData(Person employee[], fstream &inData, int N);
-void writeData(Person employee[], fstream &inData, int N);
+void readData(vector<Person> & employee, fstream &inData);
+void writeData(vector<Person> & employee, fstream &inData);
 int main(){
 
 fstream inData;
 
-int N = 20;
 
-Person employee[N];
 
-readData(employee, inData, N);
-writeData(employee, inData, N);
+vector<Person> employee;
+
+readData(employee, inData);
+writeData(employee, inData);
 
 
 return 0;
 }
-void readData(Person employee[], fstream &inData, int N){
+void readData(vector<Person> & employee, fstream &inData){
 
 inData.open("input.txt", ios::in);
 
@@ -29,31 +31,20 @@ float rate, hours;
 
 
 
-  for(int i = 0; i < N; i++){
-    if(!inData.eof())
-    {
-    inData >> fName >> lName >> hours >> rate;
-
-
-        employee[i].setFirstName(fName);
-        employee[i].setLastName(lName);
-        employee[i].setHoursWorked(hours);
-        employee[i].setPayRate(rate);
-
-   }
-   else
-      break;
-
+  while(inData >> fName >> lName >> hours >> rate)
+  {
+    employee.emplace_back(fName, lName, hours, rate);
   }
+
   inData.close();
 
 }
-void writeData(Person employee[], fstream &inData, int N){
+void writeData(vector<Person> & employee, fstream &inData){
      inData.open("output.txt", ios::out);
 
      inData <<  employee[0].fullName() << "\t" << employee[0].totalPay() << endl;
 
-        for(int i = 1; i < N; i++){
+        for(int i = 1; i < employee.size(); i++){
           if(employee[i].fullName() == employee[i-1].fullName())
           {
             break;

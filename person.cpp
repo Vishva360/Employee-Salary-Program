@@ -1,9 +1,14 @@
+//Vishva Patel
+//Section #2
 using namespace std;
-#include <iostream>
-#include <string>
 #include "person.h"
 
-Person::Person(){}
+Person::Person(string fName, string lName, float rate, float hours){
+  setLastName(lName);
+  setFirstName(fName);
+  setPayRate(rate);
+  setHoursWorked(hours);
+}
 
 void Person::setLastName(string lName){
   lastName = lName;
